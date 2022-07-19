@@ -1,0 +1,77 @@
+{
+  "consumer": {
+    "name": "pablosdk"
+  },
+  "provider": {
+    "name": "Pablo"
+  },
+  "interactions": [
+    {
+      "description": "A valid crate request",
+      "providerState": "A valid test authorization token",
+      "request": {
+        "method": "POST",
+        "path": "/payments/intent",
+        "headers": {
+          "Authorization": "Bearer valid-token",
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "amount": 999
+        }
+      },
+      "response": {
+        "status": 201,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "id": "b16872c595994147",
+          "methods": [
+            {
+              "instruments": [
+                {
+                  "description": "string",
+                  "id": "a41x5mdfns7c9s7"
+                }
+              ],
+              "name": "creditcard"
+            }
+          ]
+        },
+        "matchingRules": {
+          "$.body.id": {
+            "match": "type"
+          },
+          "$.body.methods": {
+            "min": 1
+          },
+          "$.body.methods[*].*": {
+            "match": "type"
+          },
+          "$.body.methods[*].instruments": {
+            "min": 1
+          },
+          "$.body.methods[*].instruments[*].*": {
+            "match": "type"
+          },
+          "$.body.methods[*].instruments[*].description": {
+            "match": "type"
+          },
+          "$.body.methods[*].instruments[*].id": {
+            "match": "type"
+          },
+          "$.body.methods[*].name": {
+            "match": "regex",
+            "regex": "creditcard|cash|psp"
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  }
+}
