@@ -33,7 +33,7 @@ func TestCreate(t *testing.T) {
 	pact.
 		AddInteraction().
 		Given("A valid test authorization token").
-		UponReceiving("A valid crate request").
+		UponReceiving("A valid create request").
 		WithRequest(dsl.Request{
 			Method:  "POST",
 			Path:    dsl.String("/payments/intent"),

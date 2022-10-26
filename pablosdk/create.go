@@ -24,6 +24,10 @@ type Method struct {
 	Instruments []Instrument `json:"instruments"`
 }
 
+type CreateRequest struct {
+	Amount int64 `json:"amount" pact:"example=999"`
+}
+
 type CreateResponse struct {
 	ID      string   `json:"id" pact:"example=b16872c595994147"`
 	Methods []Method `json:"methods"`
@@ -35,10 +39,6 @@ const (
 
 func NewIntentClient(addr, authToken string) *IntentClient {
 	return &IntentClient{pabloAddr: addr, authToken: authToken}
-}
-
-type CreateRequest struct {
-	Amount int64 `json:"amount" pact:"example=999"`
 }
 
 func (i *IntentClient) Create(ctx context.Context, req CreateRequest) (CreateResponse, error) {
